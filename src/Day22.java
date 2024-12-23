@@ -1,3 +1,5 @@
+import utilities.MultiThread;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -50,8 +52,6 @@ public class Day22 {
         int[][] allPriceArray = twoDimensionalIntListToArray(allPrices);
         int[][] allPriceChangesArray = twoDimensionalIntListToArray(allPriceChanges);
 
-        List<Thread> runningThreads = new ArrayList<>();
-
         long startTime = System.currentTimeMillis();
 
         AtomicLong maxBananas = new AtomicLong(0);
@@ -59,7 +59,7 @@ public class Day22 {
             int finalI = i;
             for (int j = -9; j < 10; j++) {
                 int finalJ = j;
-                Thread t2 = new Thread(() -> {
+                MultiThread.multiThread(() -> {
                     for (int k = -9; k < 10; k++) {
                         for (int l = -9; l < 10; l++) {
                             long bananasForThisSequence = calculateTotalBananasSold(allPriceArray, allPriceChangesArray, finalI, finalJ, k, l);
@@ -69,18 +69,10 @@ public class Day22 {
                         }
                     }
                 });
-                t2.start();
-                runningThreads.add(t2);
             }
         }
 
-        for (Thread runningThread : runningThreads) {
-            try {
-                runningThread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        MultiThread.waitForCompletion();
 
         long duration = System.currentTimeMillis() - startTime;
 
