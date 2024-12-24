@@ -184,36 +184,4 @@ public class Navigator2D {
     public boolean isWithinBounds() {
         return isWithinBounds(this.x, this.y);
     }
-
-    enum Direction {
-        NORTH, EAST, SOUTH, WEST, NORTH_EAST, SOUTH_EAST, NORTH_WEST, SOUTH_WEST;
-
-        int getDx() {
-            switch (this) {
-                case EAST, NORTH_EAST, SOUTH_EAST -> {
-                    return 1;
-                }
-                case WEST, NORTH_WEST, SOUTH_WEST -> {
-                    return -1;
-                }
-                default -> {
-                    return 0;
-                }
-            }
-        }
-
-        int getDy() {
-            switch (this) {
-                case NORTH, NORTH_EAST, NORTH_WEST -> {
-                    return -1;
-                }
-                case SOUTH, SOUTH_WEST, SOUTH_EAST -> {
-                    return 1;
-                }
-                default -> {
-                    return 0;
-                }
-            }
-        }
-    }
 }

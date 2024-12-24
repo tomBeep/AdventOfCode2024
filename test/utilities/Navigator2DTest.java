@@ -22,7 +22,7 @@ public class Navigator2DTest {
             numberOfApplys.incrementAndGet();
         });
 
-        assertEquals(get2DArray(array), 24, numberOfApplys.get());
+        assertEquals(Parsing.convert2DArrayToString(array), 24, numberOfApplys.get());
 
         // Expected:
         // [true , false, true, false, true ]
@@ -31,17 +31,17 @@ public class Navigator2DTest {
         // [false, true , true, true , false]
         // [true , false, true, false, true ]
 
-        assertFalse(get2DArray(array), array[0][1]);
-        assertFalse(get2DArray(array), array[0][3]);
+        assertFalse(Parsing.convert2DArrayToString(array), array[0][1]);
+        assertFalse(Parsing.convert2DArrayToString(array), array[0][3]);
 
-        assertFalse(get2DArray(array), array[1][0]);
-        assertFalse(get2DArray(array), array[1][4]);
+        assertFalse(Parsing.convert2DArrayToString(array), array[1][0]);
+        assertFalse(Parsing.convert2DArrayToString(array), array[1][4]);
 
-        assertFalse(get2DArray(array), array[3][0]);
-        assertFalse(get2DArray(array), array[3][4]);
+        assertFalse(Parsing.convert2DArrayToString(array), array[3][0]);
+        assertFalse(Parsing.convert2DArrayToString(array), array[3][4]);
 
-        assertFalse(get2DArray(array), array[4][1]);
-        assertFalse(get2DArray(array), array[4][3]);
+        assertFalse(Parsing.convert2DArrayToString(array), array[4][1]);
+        assertFalse(Parsing.convert2DArrayToString(array), array[4][3]);
     }
 
     @Test
@@ -80,43 +80,43 @@ public class Navigator2DTest {
         navigator.iterateInFixedDirection((x, y) -> {
             array[y][x] = true;
             numberOfApplys.incrementAndGet();
-        }, Navigator2D.Direction.EAST);
+        }, Direction.EAST);
         assertEquals(horizontalSize, numberOfApplys.get());
 
         numberOfApplys.set(0);
         navigator.iterateInFixedDirection((x, y) -> {
             array[y][x] = true;
             numberOfApplys.incrementAndGet();
-        }, Navigator2D.Direction.WEST);
+        }, Direction.WEST);
         assertEquals(horizontalSize, numberOfApplys.get());
 
         numberOfApplys.set(0);
         navigator.iterateInFixedDirection((x, y) -> {
             array[y][x] = true;
             numberOfApplys.incrementAndGet();
-        }, Navigator2D.Direction.SOUTH);
+        }, Direction.SOUTH);
         assertEquals(verticalSize, numberOfApplys.get());
 
         numberOfApplys.set(0);
         navigator.iterateInFixedDirection((x, y) -> {
             array[y][x] = true;
             numberOfApplys.incrementAndGet();
-        }, Navigator2D.Direction.NORTH);
+        }, Direction.NORTH);
         assertEquals(verticalSize, numberOfApplys.get());
 
         numberOfApplys.set(0);
         navigator.iterateInFixedDirection((x, y) -> {
             array[y][x] = true;
             numberOfApplys.incrementAndGet();
-        }, Navigator2D.Direction.NORTH_EAST);
-        assertEquals(get2DArray(array), 1, numberOfApplys.get());
+        }, Direction.NORTH_EAST);
+        assertEquals(Parsing.convert2DArrayToString(array), 1, numberOfApplys.get());
 
         numberOfApplys.set(0);
         navigator.iterateInFixedDirection((x, y) -> {
             array[y][x] = true;
             numberOfApplys.incrementAndGet();
-        }, Navigator2D.Direction.SOUTH_EAST);
-        assertEquals(get2DArray(array), Math.min(horizontalSize, verticalSize), numberOfApplys.get());
+        }, Direction.SOUTH_EAST);
+        assertEquals(Parsing.convert2DArrayToString(array), Math.min(horizontalSize, verticalSize), numberOfApplys.get());
     }
 
     private void testSpiralOrder(int horizontalSize, int verticalSize) {
@@ -143,19 +143,11 @@ public class Navigator2DTest {
         check(array, numberOfApplys);
     }
 
-    private String get2DArray(boolean[][] arr) {
-        StringBuilder sb = new StringBuilder("\n");
-        for (int i = 0; i < arr.length; i++) {
-            sb.append(Arrays.toString(arr[i])).append("\n");
-        }
-        return sb.toString();
-    }
-
     private void check(boolean[][] test, AtomicInteger numberOfApplys) {
-        assertEquals(get2DArray(test), test.length * test[0].length, numberOfApplys.get());
+        assertEquals(Parsing.convert2DArrayToString(test), test.length * test[0].length, numberOfApplys.get());
         for (int x = 0; x < test[0].length; x++) {
             for (int y = 0; y < test.length; y++) {
-                assertTrue(get2DArray(test), test[y][x]);
+                assertTrue(Parsing.convert2DArrayToString(test), test[y][x]);
             }
         }
     }
