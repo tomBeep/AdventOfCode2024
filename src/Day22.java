@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicLong;
 
 import static utilities.Transformers.twoDimensionalIntListToArray;
 
@@ -43,48 +42,27 @@ public class Day22 {
     }
 
     private void calculatePart2(List<List<Integer>> allPrices) {
-        System.out.println("Part 2: ...running");
         List<List<Integer>> allPriceChanges = calculateAllPriceChanges(allPrices);
 
 
         int[][] allPriceArray = twoDimensionalIntListToArray(allPrices);
         int[][] allPriceChangesArray = twoDimensionalIntListToArray(allPriceChanges);
 
-        List<Thread> runningThreads = new ArrayList<>();
-
-        long startTime = System.currentTimeMillis();
-
-        AtomicLong maxBananas = new AtomicLong(0);
+        long maxBananas = 0;
         for (int i = -9; i < 10; i++) {
-            int finalI = i;
+            System.out.println("Part 2: ...running step " + (i + 10) + " of " + 18);
             for (int j = -9; j < 10; j++) {
-                int finalJ = j;
-                Thread t2 = new Thread(() -> {
-                    for (int k = -9; k < 10; k++) {
-                        for (int l = -9; l < 10; l++) {
-                            long bananasForThisSequence = calculateTotalBananasSold(allPriceArray, allPriceChangesArray, finalI, finalJ, k, l);
-                            if (bananasForThisSequence > maxBananas.get()) {
-                                maxBananas.set(bananasForThisSequence);
-                            }
+                for (int k = -9; k < 10; k++) {
+                    for (int l = -9; l < 10; l++) {
+                        long bananasForThisSequence = calculateTotalBananasSold(allPriceArray, allPriceChangesArray, i, j, k, l);
+                        if (bananasForThisSequence > maxBananas) {
+                            maxBananas = bananasForThisSequence;
                         }
                     }
-                });
-                t2.start();
-                runningThreads.add(t2);
+                }
             }
         }
-
-        for (Thread runningThread : runningThreads) {
-            try {
-                runningThread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        long duration = System.currentTimeMillis() - startTime;
-
-        System.out.printf("Part 2: %d (Took %.2f seconds)", maxBananas.get(), duration / 1000.0);
+        System.out.println("Part 2: " + maxBananas);
     }
 
     private static List<List<Integer>> calculateAllPriceChanges(List<List<Integer>> allPrices) {
