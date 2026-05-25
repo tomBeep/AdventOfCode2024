@@ -73,6 +73,7 @@ public class Day07 {
                 similarityScore.addAndGet((int) score);
             });
         }
+        MultiThread.waitForCompletion();
         System.out.println("Part 2: " + similarityScore);
     }
 
