@@ -107,21 +107,6 @@ public class Day05 {
         return true;
     }
 
-    private static class Pair {
-        long before;
-        long after;
-
-        public Pair(long before, long after) {
-            this.before = before;
-            this.after = after;
-        }
-
-        @Override
-        public String toString() {
-            return this.before + "|" + this.after;
-        }
-    }
-
     private String getExampleInput() {
         return """
                 47|53
@@ -1521,5 +1506,20 @@ public class Day05 {
                 48,75,29,43,28,34,74,71,19,54,24,22,78
                 82,21,72,63,64,85,89,95,12,14,38,48,75,29,43,77,28,34,73,74,96,71,19
                 69,22,94,39,33,83,44,24,13,54,93,45,73""";
+    }
+
+    private static class Pair {
+        long before;
+        long after;
+
+        public Pair(long before, long after) {
+            this.before = before;
+            this.after = after;
+        }
+
+        @Override
+        public String toString() {
+            return this.before + "|" + this.after;
+        }
     }
 }
