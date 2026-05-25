@@ -193,7 +193,6 @@ public class Day20 {
                 continue;
             } else if (maze[p.y][p.x] != '#') {
                 possibleCheatEndPoints.add(p);
-                getPossibleExitsWithin(maze, p, secondsOfPassage - 1, possibleCheatEndPoints, seenPoints);
             } else {
                 getPossibleExitsWithin(maze, p, secondsOfPassage - 1, possibleCheatEndPoints, seenPoints);
             }
