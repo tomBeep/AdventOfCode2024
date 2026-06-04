@@ -10,8 +10,8 @@ public class Day24 {
     }
 
     private void doChallenge() {
-        String input = getInput();
-//        String input = getExampleInput();
+//        String input = getInput();
+        String input = getExampleInput();
 //        String input = getExampleInput2();
 
         Scanner sc = new Scanner(input);
@@ -47,7 +47,7 @@ public class Day24 {
         }
 
         System.out.println("Part 1: " + doPart1(wires, gates));
-//        System.out.println("Part 2: " + doPart2(wires, gates));
+        System.out.println("Part 1: " + doPart2(wires, gates));
 
         createGateGraph();
     }
@@ -84,7 +84,7 @@ public class Day24 {
                 nodeMap.put(split[4], gateNode);
                 nodeList.add(gateNode);
             } else {
-                String wireName = split[0].substring(0, split[0].length() - 1);
+                String wireName = split[0].substring(0, split[0].length());
                 WireNode wireNode = new WireNode(wireName, !split[1].equals("0"));
                 nodeMap.put(wireName, wireNode);
                 nodeList.add(wireNode);
@@ -105,7 +105,6 @@ public class Day24 {
 
             if (parsingGates) {
                 String input1 = split[0];
-                String operator = split[1];
                 String input2 = split[2];
                 String name = split[4];
                 GateNode gateNode = (GateNode) nodeMap.get(name);
@@ -135,7 +134,7 @@ public class Day24 {
         long result = 0;
         for(int i=numbers.length - 1; i>=0; i--)
             if(numbers[i]=='1')
-                result += Math.pow(2, (numbers.length-i - 1));
+                result += (long) Math.pow(2, (numbers.length-i - 1));
         return result;
     }
 
